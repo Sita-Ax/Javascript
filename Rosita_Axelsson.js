@@ -48,7 +48,7 @@ function initButton() {
         if (validateLoginInfo() == true) {
             alert('Welcome!');
         } else {
-            input.style.border = '3px, solid red';
+            input.style.border = '3px solid red';
         }
     });
 
