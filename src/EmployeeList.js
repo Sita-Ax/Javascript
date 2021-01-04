@@ -1,29 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import Employee from "./Employee";
 
 function EmployeeList() {
-  function Employee({ name, email, phone, skills, avatar }) {
-    return (
-      <div className="EmployeeDiv" style={{display: 'flex', boxSizing: 'border-box', width: '75%', border: '2px solid black', margin: '1rem', padding: '1rem', backgroundColor: '#DEDEDE', }}>
-        <img className="avatar" alt="Bild" src={avatar} style={{width: '200px', height: '200px', marginRight: '2rem', }} />
-        <ul>
-          <h2>{name}</h2>
-          <p>
-            <strong>Email: </strong>
-            {email}
-          </p>
-          <p>
-            <strong>Phone: </strong>
-            {phone}
-          </p>
-          <p>
-            <strong>Skills: </strong>
-            {skills}
-          </p>
-        </ul>
-      </div>
-    );
-}
-  const [Employees, setEmployees] = useState([
+  const [employees, setEmployees] = useState([
     {
       name: "Yazeen Jasim",
       email: "test@mail.com",
@@ -54,9 +33,9 @@ function EmployeeList() {
   }, []);
 
   useEffect(function () {
-    localStorage.setItem("EmployeesData", JSON.stringify(Employees));
+    localStorage.setItem("EmployeesData", JSON.stringify(employees));
   },
-    [Employees +1]
+    [employees]
   );
 
   function removeLocal() {
@@ -64,30 +43,26 @@ function EmployeeList() {
   }
 
   function handleAddEmployee() {
-    setEmployees(function (prevState) {
+    setEmployees((prevState) => {
       return [...prevState, {
         name: "Triss Merigold",
         email: "yazeenj@outlook.com",
         phone: "0700000000",
         skills: "Vue, firebase, git, c#",
         avatar: "https://i.imgur.com/TUhCrsY.png",
-      },];
+      },
+      ];
     });
   }
+
   return (
     <>
-      <h2>Employee List</h2>
-      <button onClick={handleAddEmployee} style={{ backgroundColor: '#4CAF50', border: '2px solid black', color: 'white', padding: '1rem', fontSize: '1rem', cursor: 'pointer', }}>Add Employee</button>
-      <button onClick={removeLocal} style={{ backgroundColor: '#4CAF50', border: '2px solid black', color: 'white', padding: '1rem', fontSize: '1rem', cursor: 'pointer', }}>Remove</button>
-      {Employees.map(function ({ name, email, phone, skills, avatar }) {
-        return (<Employee
-            name={name}
-            email={email}
-            phone={phone}
-            skills={skills}
-            avatar={avatar}
-          />
-      )})}
+      <h2>EmployeeList</h2>
+      <button className = 'button' onClick={handleAddEmployee}>Add Employee</button>
+      <button className = 'button' onClick={removeLocal}>Remove</button>
+      {employees.map((employee)=> (
+        <Employee EmployeeData={employee} />
+      ))}
     </>
   );
 }
